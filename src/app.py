@@ -43,15 +43,29 @@ def load_test_cases():
         return json.load(f)
 
 
-def save_waterfall_trace(trace_data: list):
-    """Ghi vết log Waterfall Trace Log ra file docs/trace_waterfall.json"""
+def save_waterfall_trace(trace_data: list, append: bool = True):
+    """Ghi vết log Waterfall Trace Log ra file docs/trace_waterfall.json (hỗ trợ lưu tích lũy nhiều log)"""
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     docs_dir = os.path.join(base_dir, "docs")
     os.makedirs(docs_dir, exist_ok=True)
     trace_path = os.path.join(docs_dir, "trace_waterfall.json")
+    
+    existing_data = []
+    if append and os.path.exists(trace_path):
+        try:
+            with open(trace_path, "r", encoding="utf-8") as f:
+                content = json.load(f)
+                if isinstance(content, list):
+                    existing_data = content
+        except Exception:
+            existing_data = []
+            
+    # Tích lũy các sự kiện mới vào danh sách cũ
+    combined_data = existing_data + trace_data
+    
     with open(trace_path, "w", encoding="utf-8") as f:
-        json.dump(trace_data, f, ensure_ascii=False, indent=2)
-    print(f"📊 [OBSERVABILITY]: Đã lưu {len(trace_data)} sự kiện Waterfall Trace tại '{trace_path}'!")
+        json.dump(combined_data, f, ensure_ascii=False, indent=2)
+    print(f"📊 [OBSERVABILITY]: Đã lưu tích lũy {len(combined_data)} sự kiện Waterfall Trace ({len(trace_data)} sự kiện mới) tại '{trace_path}'!")
 
 
 def run_baseline_chatbot(user_query: str, provider):
