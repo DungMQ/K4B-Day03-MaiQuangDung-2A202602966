@@ -1,0 +1,45 @@
+{
+  "working_hours": {
+    "start": "08:30",
+    "end": "17:30",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "events": [
+    {
+      "event_id": "EVT-2026-001",
+      "title": "Daily Standup Team Lab & Engineering",
+      "start_datetime": "16/09/2026 09:00",
+      "end_datetime": "16/09/2026 09:45",
+      "attendees": ["team@vinuni.edu.vn"],
+      "description": "Cập nhật công việc hàng ngày của nhóm nghiên cứu Lab 3.",
+      "status": "CONFIRMED"
+    },
+    {
+      "event_id": "EVT-2026-002",
+      "title": "Giờ học Chuyên đề Machine Learning",
+      "start_datetime": "16/09/2026 13:00",
+      "end_datetime": "16/09/2026 14:00",
+      "attendees": ["ml-class@vinuni.edu.vn"],
+      "description": "Tiết học chuyên đề tại giảng đường B2.",
+      "status": "CONFIRMED"
+    },
+    {
+      "event_id": "EVT-2026-003",
+      "title": "Họp báo cáo Ban Giám Đốc",
+      "start_datetime": "16/09/2026 16:00",
+      "end_datetime": "16/09/2026 17:00",
+      "attendees": ["bod@vinuni.edu.vn"],
+      "description": "Báo cáo tiến độ quý 3 cho Ban Giám Đốc.",
+      "status": "CONFIRMED"
+    },
+    {
+      "event_id": "EVT-2026-004",
+      "title": "Hội thảo AI & Robotics",
+      "start_datetime": "17/09/2026 14:00",
+      "end_datetime": "17/09/2026 16:30",
+      "attendees": ["robotics@vinuni.edu.vn"],
+      "description": "Tham gia hội thảo nghiên cứu liên trường.",
+      "status": "CONFIRMED"
+    }
+  ]
+}

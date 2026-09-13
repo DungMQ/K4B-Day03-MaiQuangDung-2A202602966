@@ -1,0 +1,55 @@
+[
+  {
+    "message_id": "MSG-2026-001",
+    "sender": "mentor.nguyen@vinuni.edu.vn",
+    "sender_name": "PGS.TS Nguyễn Văn A (Mentor)",
+    "recipients": ["dung.mq@vinuni.edu.vn"],
+    "subject": "Yêu cầu hẹn họp review tiến độ đồ án tốt nghiệp AI",
+    "timestamp": "15/09/2026 08:30",
+    "preview": "Chào Dũng, thầy cần một buổi họp review tiến độ đồ án vào ngày 16/09/2026 khoảng 45 phút...",
+    "body": "Chào Dũng, thầy đã đọc qua báo cáo tiến độ tuần trước. Thầy cần một buổi họp trực tiếp hoặc trực tuyến 45 phút vào ngày 16/09/2026 trong khoảng 10:00 - 12:00 hoặc đầu giờ chiều để chốt kiến trúc mô hình. Em kiểm tra lịch rảnh rồi tạo lịch họp và gửi lại link cho thầy nhé.",
+    "unread": true,
+    "has_deadline": false,
+    "importance": "High"
+  },
+  {
+    "message_id": "MSG-2026-002",
+    "sender": "newsletter@vinuni.edu.vn",
+    "sender_name": "Phòng Công nghệ Thông tin",
+    "recipients": ["all-students@vinuni.edu.vn"],
+    "subject": "Bản tin công nghệ tuần 37 & Nâng cấp hạ tầng mạng thư viện",
+    "timestamp": "14/09/2026 10:00",
+    "preview": "Hệ thống mạng Wi-Fi tại tầng 3 thư viện sẽ được bảo trì nâng cấp trong đêm thứ Bảy...",
+    "body": "Thân gửi toàn thể sinh viên và giảng viên, Phòng IT xin thông báo hệ thống mạng Wi-Fi tại tầng 3 thư viện sẽ được bảo trì nâng cấp vào đêm thứ Bảy từ 22:00 đến 02:00 sáng hôm sau. Việc sử dụng mạng tại các khu vực khác không bị gián đoạn. Đây là email thông báo, không yêu cầu phản hồi hay họp hành.",
+    "unread": false,
+    "has_deadline": false,
+    "importance": "Low"
+  },
+  {
+    "message_id": "MSG-2026-003",
+    "sender": "academic.affairs@vinuni.edu.vn",
+    "sender_name": "Phòng Quản lý Đào tạo",
+    "recipients": ["dung.mq@vinuni.edu.vn"],
+    "subject": "[DEADLINE] Nhắc nhở hạn chót nộp bản đăng ký đề tài tốt nghiệp",
+    "timestamp": "15/09/2026 14:00",
+    "preview": "Hạn chót nộp bản đăng ký đề tài tốt nghiệp là 17:00 ngày 18/09/2026...",
+    "body": "Kính gửi sinh viên Mai Quang Dũng, Phòng Quản lý Đào tạo xin nhắc nhở hạn chót nộp bản đăng ký đề tài tốt nghiệp có chữ ký của Mentor là trước 17:00 ngày 18/09/2026 trên cổng LMS. Sau thời gian trên, hệ thống sẽ tự động đóng cổng tiếp nhận.",
+    "unread": true,
+    "has_deadline": true,
+    "deadline": "17:00 18/09/2026",
+    "importance": "High"
+  },
+  {
+    "message_id": "MSG-2026-004",
+    "sender": "sarah.davis@partner.com",
+    "sender_name": "Sarah Davis (Global Partner)",
+    "recipients": ["dung.mq@vinuni.edu.vn"],
+    "subject": "Đề xuất lịch họp ký kết Hợp đồng đối tác Q4",
+    "timestamp": "15/09/2026 16:30",
+    "preview": "Chào bạn, tôi muốn hẹn cuộc họp trực tuyến vào lúc 14:00 ngày 16/09/2026 để chốt hợp đồng...",
+    "body": "Chào bạn, tôi muốn hẹn một cuộc họp trực tuyến 45 phút vào lúc 14:00 ngày 16/09/2026 để thảo luận và ký kết hợp đồng đối tác Q4. Bạn kiểm tra lịch và gửi giấy mời kèm link họp giúp tôi nhé!",
+    "unread": false,
+    "has_deadline": false,
+    "importance": "Normal"
+  }
+]

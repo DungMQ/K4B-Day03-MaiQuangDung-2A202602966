@@ -14,11 +14,12 @@ if sys.stdout.encoding != 'utf-8':
     except Exception:
         pass
 
-class MCPAcademicServer:
+class MCPOfficeServer:
     """
     Giả lập MCP Server tuân thủ chuẩn giao thức Model Context Protocol
+    Chủ đề: AI Email & Meeting Operations (MCPOfficeServer)
     """
-    def __init__(self, server_name: str = "vinuni-academic-mcp-server"):
+    def __init__(self, server_name: str = "email-meeting-operations-mcp-server"):
         self.server_name = server_name
         self.version = "2026.1.0"
         
@@ -28,41 +29,94 @@ class MCPAcademicServer:
         
     def call_tool(self, tool_name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
         """
-        [TASK 2.1] HỌC VIÊN HOÀN THIỆN HÀM THỰC THI TOOL TRÊN MCP SERVER
-        Thực thi request gọi Tool theo chuẩn MCP JSON-RPC
+        [TASK 2.1] Thực thi request gọi Tool theo chuẩn MCP JSON-RPC 2.0
+        Xử lý đầy đủ các trường hợp: UNKNOWN_TOOL, EXECUTION_ERROR, NOT_FOUND, SUCCESS.
         """
-        # --------------------------------------------------------------------------
-        # TODO 2.1: HỌC VIÊN HOÀN THIỆN HÀM GỌI TOOL CHUẨN MCP JSON-RPC
-        # 🎯 YÊU CẦU THỰC THI THUẬT TOÁN:
-        # 1. Gọi hàm dispatch_tool_call(tool_name, arguments) để lấy chuỗi JSON kết quả từ Tool Router.
-        # 2. Chuyển đổi chuỗi JSON kết quả thành Python Dictionary (dùng json.loads).
-        # 3. Đóng gói phản hồi và trả về Dict theo đúng chuẩn giao thức MCP JSON-RPC 2.0:
-        #    - Các trường bắt buộc: "jsonrpc": "2.0", "server": self.server_name, "tool": tool_name, "result": content
-        # --------------------------------------------------------------------------
-        return {}
+        valid_tool_names = [t["name"] for t in TOOLS_SCHEMA]
+        
+        # 1. Xử lý UNKNOWN_TOOL nếu tên công cụ không tồn tại
+        if tool_name not in valid_tool_names:
+            return {
+                "jsonrpc": "2.0",
+                "server": self.server_name,
+                "tool": tool_name,
+                "error": {
+                    "code": -32601,
+                    "message": f"Method/Tool '{tool_name}' không tồn tại trong hệ thống (UNKNOWN_TOOL)!"
+                },
+                "result": {
+                    "status": "UNKNOWN_TOOL",
+                    "error": f"Tool '{tool_name}' không tồn tại!",
+                    "available_tools": valid_tool_names
+                }
+            }
+
+        # 2. Gọi hàm dispatch_tool_call(tool_name, arguments) qua Tool Router
+        try:
+            raw_result_str = dispatch_tool_call(tool_name, arguments)
+            content = json.loads(raw_result_str)
+        except Exception as e:
+            # Xử lý EXECUTION_ERROR khi xảy ra ngoại lệ
+            return {
+                "jsonrpc": "2.0",
+                "server": self.server_name,
+                "tool": tool_name,
+                "error": {
+                    "code": -32000,
+                    "message": f"Lỗi thực thi trong quá trình chạy Tool (EXECUTION_ERROR): {str(e)}"
+                },
+                "result": {
+                    "status": "EXECUTION_ERROR",
+                    "error": str(e)
+                }
+            }
+            
+        # 3. Đóng gói phản hồi theo chuẩn giao thức MCP JSON-RPC 2.0
+        # content đã có status: "SUCCESS" hoặc "NOT_FOUND" hoặc "CONFLICT"
+        return {
+            "jsonrpc": "2.0",
+            "server": self.server_name,
+            "tool": tool_name,
+            "result": content
+        }
+
+# Alias để đảm bảo tương thích ngược tuyệt đối với các import cũ
+MCPOperationsServer = MCPOfficeServer
+MCPAcademicServer = MCPOfficeServer
 
 
 if __name__ == "__main__":
     print("==========================================================")
-    print("🔌 KIỂM THỬ ĐỘC LẬP MCP SERVER (vinuni-academic-mcp-server)")
+    print("🔌 KIỂM THỬ ĐỘC LẬP MCP SERVER (MCPOfficeServer)")
     print("==========================================================")
     
-    server = MCPAcademicServer()
+    server = MCPOfficeServer()
     tools = server.list_tools()
     print(f"✅ Khởi tạo thành công MCP Server: {server.server_name} (Version: {server.version})")
-    print(f"📦 Số lượng Tools công bố: {len(tools)}")
+    print(f"📦 Số lượng Tools công bố: {len(tools)} tools:")
+    for t in tools:
+        print(f"   - 🛠️ {t['name']}: {t.get('description', '')[:60]}...")
     
-    # Kiểm tra trạng thái TODO 1.2 (Tool Schema)
-    sched_tool = next((t for t in tools if t.get("name") == "schedule_appointment"), None)
-    if sched_tool and not sched_tool.get("parameters", {}).get("properties"):
-        print("⏳ [TODO 1.2]: Tool 'schedule_appointment' chưa được định nghĩa properties trong 'src/tools.py'.")
+    # Kiểm tra trạng thái các Tool Schemas
+    missing_props = [t['name'] for t in tools if not t.get("parameters", {}).get("properties")]
+    if missing_props:
+        print(f"⏳ [CẢNH BÁO]: Các tool sau chưa định nghĩa properties: {missing_props}")
     else:
-        print("✅ [TODO 1.2]: Tool 'schedule_appointment' đã có schema đầy đủ.")
+        print(f"✅ [TASK 1.2]: Tất cả {len(tools)} Tool Schemas đã có đầy đủ schema JSON Schema chuẩn!")
 
-    # Kiểm tra trạng thái TODO 2.1 (call_tool)
-    test_result = server.call_tool("academic_query", {"student_id": "SV2026001"})
-    if not test_result:
-        print("⏳ [TODO 2.1]: Hàm call_tool() đang trả về rỗng. Học viên hãy hoàn thiện TODO 2.1 trong 'src/mcp_server.py'!")
-    else:
-        print(f"✅ [TODO 2.1]: Test dispatch tool 'academic_query' thành công:")
-        print(f"   Phản hồi JSON-RPC: {json.dumps(test_result, ensure_ascii=False)}")
+    # 1. Kiểm tra test case SUCCESS
+    test_success = server.call_tool("search_emails", {"query": "đồ án tốt nghiệp"})
+    print(f"\n1. Test SUCCESS (search_emails):")
+    print(f"   Status: {test_success['result'].get('status')} | Found: {test_success['result'].get('total_found')} emails")
+
+    # 2. Kiểm tra test case NOT_FOUND
+    test_not_found = server.call_tool("read_email", {"message_id": "MSG-FAKE-999"})
+    print(f"2. Test NOT_FOUND (read_email):")
+    print(f"   Status: {test_not_found['result'].get('status')} | Message: {test_not_found['result'].get('message')}")
+
+    # 3. Kiểm tra test case UNKNOWN_TOOL
+    test_unknown = server.call_tool("non_existent_tool", {})
+    print(f"3. Test UNKNOWN_TOOL:")
+    print(f"   Status: {test_unknown['result'].get('status')} | Error: {test_unknown['error']['message']}")
+
+

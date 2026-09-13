@@ -1,29 +1,61 @@
 [
   {
     "step": 1,
-    "query": "Chào bạn, bạn có thể giới thiệu quy chế học vụ cơ bản của Đại học VinUni không?",
-    "action_type": "FINAL_ANSWER",
-    "thought": "Câu hỏi chung về quy chế học vụ, trả lời trực tiếp không cần gọi Tool.",
-    "output": "[Mock Agent Response]: Xin chào! Quy chế học vụ VinUni yêu cầu sinh viên tích lũy tối thiểu 120 tín chỉ và duy trì GPA trên 2.0 để tốt nghiệp.",
-    "latency_ms": 2845.93
-  },
-  {
-    "step": 1,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "Hãy tìm email từ Mentor Nguyễn Văn A, sau đó đọc chi tiết nội dung email đó và tóm tắt các yêu cầu của thầy cho tôi.",
     "action_type": "TOOL_EXECUTION",
-    "tool_name": "academic_query",
+    "tool_name": "search_emails",
     "arguments": {
-      "student_id": "SV2026001"
+      "query": "Nguyễn Văn A"
     },
-    "observation": {},
-    "latency_ms": 799.12
+    "observation": {
+      "status": "SUCCESS",
+      "total_found": 1,
+      "emails": [
+        {
+          "message_id": "MSG-2026-001",
+          "sender": "mentor.nguyen@vinuni.edu.vn",
+          "sender_name": "PGS.TS Nguyễn Văn A (Mentor)",
+          "subject": "Yêu cầu hẹn họp review tiến độ đồ án tốt nghiệp AI",
+          "timestamp": "15/09/2026 08:30",
+          "preview": "Chào Dũng, thầy cần một buổi họp review tiến độ đồ án vào ngày 16/09/2026 khoảng 45 phút...",
+          "unread": true
+        }
+      ]
+    },
+    "latency_ms": 1936.97
   },
   {
     "step": 2,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "Hãy tìm email từ Mentor Nguyễn Văn A, sau đó đọc chi tiết nội dung email đó và tóm tắt các yêu cầu của thầy cho tôi.",
+    "action_type": "TOOL_EXECUTION",
+    "tool_name": "read_email",
+    "arguments": {
+      "message_id": "MSG-2026-001"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "email": {
+        "message_id": "MSG-2026-001",
+        "sender": "mentor.nguyen@vinuni.edu.vn",
+        "sender_name": "PGS.TS Nguyễn Văn A (Mentor)",
+        "recipients": [
+          "dung.mq@vinuni.edu.vn"
+        ],
+        "subject": "Yêu cầu hẹn họp review tiến độ đồ án tốt nghiệp AI",
+        "timestamp": "15/09/2026 08:30",
+        "body": "Chào Dũng, thầy đã đọc qua báo cáo tiến độ tuần trước. Thầy cần một buổi họp trực tiếp hoặc trực tuyến 45 phút vào ngày 16/09/2026 trong khoảng 10:00 - 12:00 hoặc đầu giờ chiều để chốt kiến trúc mô hình. Em kiểm tra lịch rảnh rồi tạo lịch họp và gửi lại link cho thầy nhé.",
+        "has_deadline": false,
+        "deadline": null
+      }
+    },
+    "latency_ms": 1619.41
+  },
+  {
+    "step": 3,
+    "query": "Hãy tìm email từ Mentor Nguyễn Văn A, sau đó đọc chi tiết nội dung email đó và tóm tắt các yêu cầu của thầy cho tôi.",
     "action_type": "FINAL_ANSWER",
-    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
-    "output": "Chưa thể trả lời chi tiết do chưa nhận được dữ liệu từ MCP Server (hãy hoàn thành TODO 2.1).",
-    "latency_ms": 10.0
+    "thought": "Gemini phản hồi trực tiếp bằng văn bản (không cần gọi công cụ).",
+    "output": "Dựa trên nội dung email từ PGS.TS Nguyễn Văn A (`mentor.nguyen@vinuni.edu.vn`), dưới đây là tóm tắt các yêu cầu của thầy dành cho bạn:\n\n- **Nội dung yêu cầu:** Họp review tiến độ đồ án tốt nghiệp AI để chốt kiến trúc mô hình (sau khi thầy đã đọc báo cáo tiến độ tuần trước).\n- **Thời gian đề xuất:** Ngày **16/09/2026**, thời lượng **45 phút**, trong khoảng **10:00 - 12:00** hoặc đầu giờ chiều.\n- **Yêu cầu hành động từ thầy:** Kiểm tra lịch rảnh của bạn, tạo lịch họp và gửi lại link cho thầy.\n\nBạn có muốn tôi tiến hành kiểm tra lịch trống và đặt lịch họp cho khung giờ này không?",
+    "latency_ms": 2042.2
   }
 ]

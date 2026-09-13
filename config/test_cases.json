@@ -1,0 +1,37 @@
+[
+  {
+    "id": "TC01",
+    "type": "direct_query",
+    "question": "Chào bạn, quy định công ty về thời lượng tối đa cho một cuộc họp trực tuyến nội bộ và thời gian gửi email thông báo trước khi hủy họp là bao lâu?",
+    "expected_behavior": "Chatbot/Agent trả lời trực tiếp từ kiến thức/chính sách chung trong System Prompt, không cần gọi bất kỳ Tool nào.",
+    "complexity": "Low"
+  },
+  {
+    "id": "TC02",
+    "type": "single_tool_query",
+    "question": "Hãy tìm kiếm các email chưa đọc trong hộp thư hoặc email có tiêu đề liên quan đến 'đồ án tốt nghiệp' từ Mentor.",
+    "expected_behavior": "Agent nhận diện nhu cầu tra cứu email, tự động phát sinh Tool Call 'search_emails' với các tham số tương ứng (query='đồ án tốt nghiệp').",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC03",
+    "type": "appointment_booking",
+    "question": "Hãy tra cứu lịch làm việc của tôi ngày 16/09/2026 và tìm các khung giờ trống kéo dài ít nhất 45 phút.",
+    "expected_behavior": "Agent tự động phát sinh Tool Call 'find_free_time' với start_date='16/09/2026' và duration_minutes=45.",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC04",
+    "type": "multi_step_reasoning",
+    "question": "Mentor Nguyễn Văn A có gửi email hẹn họp review tiến độ đồ án. Hãy tìm và đọc email của thầy, kiểm tra các khung giờ trống ngày 16/09/2026 và lên lịch họp 'Họp Review Đồ án Tốt nghiệp cùng Mentor' vào khung giờ trống 10:00 - 10:45 giúp tôi.",
+    "expected_behavior": "Agent thực hiện chuỗi suy luận ReAct: search_emails/read_email để nắm yêu cầu của Mentor -> find_free_time kiểm tra giờ trống -> create_calendar_event tạo cuộc họp an toàn.",
+    "complexity": "High"
+  },
+  {
+    "id": "TC05",
+    "type": "edge_case_handling",
+    "question": "Hãy đọc nội dung email có mã định danh MSG-9999-999 và tóm tắt giúp tôi.",
+    "expected_behavior": "Agent gọi tool 'read_email' với message_id='MSG-9999-999', nhận kết quả NOT_FOUND từ Tool và phản hồi trung thực, lịch sự rằng không tìm thấy email này.",
+    "complexity": "Medium"
+  }
+]
